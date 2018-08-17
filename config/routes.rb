@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     post :reorder
     get :unpublish
     post :unpublish
-    post :batch
+    post :batch_links
 
     resources :steps
   end
