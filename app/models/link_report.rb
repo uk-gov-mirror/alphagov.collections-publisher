@@ -3,9 +3,7 @@ class LinkReport < ApplicationRecord
 
   def batch_links
     @step = self.step
-    parsed_content = StepContentParser.new.parse(@step.contents)
-    links = generate_links(parsed_content)
-    links.map! { |link| link[0..4] == "http:" ? link : prefix_govuk(link) }
+    StepContentParser.new.all_paths(@step.contents)
   end
 
   def create_batch

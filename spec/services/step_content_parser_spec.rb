@@ -464,4 +464,13 @@ RSpec.describe StepContentParser do
       )
     end
   end
+
+  describe '.all_paths' do
+    context 'when step_text has mix of relative and absolute links' do
+      it 'should return an array of URLs' do
+        test_text = "[Check what age you can drive](/vehicles-can-drive)\n[Other link](https://www.google.com)"
+        expect(subject.all_paths(test_text)).to eql ["https://www.gov.uk/vehicles-can-drive", "https://www.google.com"]
+      end
+    end
+  end
 end

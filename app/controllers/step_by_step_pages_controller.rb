@@ -89,7 +89,7 @@ class StepByStepPagesController < ApplicationController
   end
 
   def batch
-    steps_in_step_by_step_page.each(&:request_broken_links)
+    @step_by_step_page.steps.each(&:request_broken_links)
     redirect_to @step_by_step_page
   end
 
@@ -127,10 +127,5 @@ private
 
   def step_by_step_page_params
     params.require(:step_by_step_page).permit(:title, :slug, :introduction, :description)
-  end
-
-  def steps_in_step_by_step_page
-    @step_by_step_page = StepByStepPage.find(params[:step_by_step_page_id])
-    @step_by_step_page.steps
   end
 end

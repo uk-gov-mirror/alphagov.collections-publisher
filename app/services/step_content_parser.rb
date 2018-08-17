@@ -45,10 +45,22 @@ class StepContentParser
     end
   end
 
+  def all_paths(step_text)
+    absolute_paths(step_text).map { |link| link[0..3] == "http" ? link : prefix_govuk(link) }
+  end
+
 private
 
   def relative_paths(content)
     content.scan(LINK_REGEX).select { |href| href[0] =~ /^\/[a-z0-9]+.*/i if href.any? }.flatten
+  end
+
+  def absolute_paths(content)
+    content.scan(LINK_REGEX).flatten
+  end
+
+  def prefix_govuk(path_to_prefix)
+    "https://www.gov.uk" + path_to_prefix
   end
 
   def standard_list?(section)
@@ -68,7 +80,6 @@ private
           "text": text,
           "href": href
         }
-
         payload[:context] = context.strip unless context.blank?
         payload
       end
