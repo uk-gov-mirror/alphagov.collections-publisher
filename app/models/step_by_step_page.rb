@@ -30,6 +30,10 @@ class StepByStepPage < ApplicationRecord
 
   scope :by_title, -> { order(:title) }
 
+  before_save do
+    self.auth_bypass_id = self.auth_bypass_id if self["auth_bypass_id"].nil?
+  end
+
   def has_been_published?
     published_at.present?
   end
