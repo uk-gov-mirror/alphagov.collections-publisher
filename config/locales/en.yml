@@ -69,7 +69,7 @@ en:
     schedule_datetime:
       date:
         label: Date
-        hint: For example, 01 08 2027
+        hint: For example: 01 08 2027
       time:
         label: Time
   secondary_content_links:
