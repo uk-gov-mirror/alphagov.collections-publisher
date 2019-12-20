@@ -10,7 +10,7 @@ gem "select2-rails", "~> 3.5.9"
 gem "uglifier", "~> 4.2"
 
 # GDS managed dependencies
-gem "gds-api-adapters", "~> 63.0"
+gem "gds-api-adapters", git: "https://github.com/alphagov/gds-api-adapters", branch: "require-publishing-api-helper"
 gem "gds-sso", "~> 14.2"
 gem "govuk_admin_template", "~> 6.7"
 gem "govuk_app_config", "~> 2.0"

@@ -1,3 +1,16 @@
+GIT
+  remote: https://github.com/alphagov/gds-api-adapters
+  revision: ff13dc54e824cb6e46c8f6ccb3ab2e1753218591
+  branch: require-publishing-api-helper
+  specs:
+    gds-api-adapters (63.1.0)
+      addressable
+      link_header
+      null_logger
+      plek (>= 1.9.0)
+      rack-cache
+      rest-client (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -92,13 +105,6 @@ GEM
     faraday (0.17.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.3)
-    gds-api-adapters (63.0.0)
-      addressable
-      link_header
-      null_logger
-      plek (>= 1.9.0)
-      rack-cache
-      rest-client (~> 2.0)
     gds-sso (14.2.0)
       multi_json (~> 1.0)
       oauth2 (~> 1.0)
@@ -408,7 +414,7 @@ DEPENDENCIES
   byebug
   database_cleaner
   factory_bot_rails
-  gds-api-adapters (~> 63.0)
+  gds-api-adapters!
   gds-sso (~> 14.2)
   generic_form_builder (~> 0.13)
   govuk-content-schema-test-helpers
