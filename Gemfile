@@ -34,7 +34,7 @@ group :development, :test do
   gem "nokogiri"
   gem "parser", "2.7.0.4"
   gem "pry-byebug"
-  gem "rspec-rails"
+  gem "rspec-rails", "~> 4.0.0.beta4"
   gem "rubocop-govuk"
   gem "scss_lint-govuk"
   gem "shoulda-matchers", "~> 4.3"
