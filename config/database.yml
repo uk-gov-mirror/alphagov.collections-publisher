@@ -1,6 +1,6 @@
 default: &default
   adapter: mysql2
-  encoding: utf8
+  encoding: utf8mb4
   username: collections_pub
   password: collections_publisher
 
