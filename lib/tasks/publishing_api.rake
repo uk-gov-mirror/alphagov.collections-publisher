@@ -11,6 +11,7 @@ namespace :publishing_api do
       rendering_app: "collections",
       public_updated_at: Time.zone.now.iso8601,
       update_type: "minor",
+      schema_name: "edition",
       document_type: "coronavirus_landing_page",
       title: "Coronavirus (COVID-19): what you need to do",
       description: "Find out about the government response to coronavirus (COVID-19) and what you need to do.",
