@@ -13,6 +13,29 @@ class CoronavirusController < ApplicationController
     render :index, locals: { links: links }
   end
 
+  def live_stream
+    @live_stream = LiveStream.first_or_create
+  end
+
+  def update_live_stream
+    @live_stream = LiveStream.last
+    if @live_stream.update(state: params[:on])
+      presenter = CoronavirusPagePresenter.new(fetch_live_details, "/coronavirus")
+      with_longer_timeout do
+        begin
+          Services.publishing_api.put_content(landing_page_id, presenter.payload)
+          publish_page(landing_page_id)
+          flash[:notice] = "Live stream turned #{@live_stream.state ? 'on' : 'off'}"
+        rescue GdsApi::HTTPGatewayTimeout
+          flash["alert"] = "Updating the page timed out - please try again"
+        end
+      end
+      redirect_to coronavirus_live_stream_path
+    else
+      flash[:alert] = "Live stream has not been updated"
+    end
+  end
+
   def show
     if page_config.nil?
       flash[:alert] = "'#{slug}' is not a valid page.  Please select from one of those below."
@@ -39,9 +62,18 @@ class CoronavirusController < ApplicationController
 
 private
 
-  def publish_page
+  def fetch_live_details
+    content = Services.publishing_api.get_content(landing_page_id)
+    JSON.parse(content.raw_response_body)["details"]
+  end
+
+  def landing_page_id
+    all_pages_configuration["landing"]["content_id"]
+  end
+
+  def publish_page(id = page_config[:content_id])
     begin
-      Services.publishing_api.publish(page_config[:content_id], update_type)
+      Services.publishing_api.publish(id, update_type)
 
       flash["notice"] = "Page published!"
     rescue GdsApi::HTTPConflict
