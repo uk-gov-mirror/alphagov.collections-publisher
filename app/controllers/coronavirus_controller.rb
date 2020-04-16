@@ -1,3 +1,5 @@
+require_relative "../services/live_stream_updater.rb"
+
 class CoronavirusController < ApplicationController
   before_action :require_coronavirus_editor_permissions!
   layout "admin_layout"
@@ -14,25 +16,23 @@ class CoronavirusController < ApplicationController
   end
 
   def live_stream
-    @live_stream = LiveStream.first_or_create
+    live_stream = LiveStream.first_or_create
+    @live_stream = LiveStreamUpdater.new(live_stream).resync
   end
 
-  def update_live_stream
+  def publish_live_stream
     @live_stream = LiveStream.last
-    if @live_stream.update(state: params[:on])
-      presenter = CoronavirusPagePresenter.new(fetch_live_details, "/coronavirus")
-      with_longer_timeout do
-        begin
-          Services.publishing_api.put_content(landing_page_id, presenter.payload)
-          publish_page(landing_page_id)
-          flash[:notice] = "Live stream turned #{@live_stream.state ? 'on' : 'off'}"
-        rescue GdsApi::HTTPGatewayTimeout
-          flash["alert"] = "Updating the page timed out - please try again"
-        end
+    updater = LiveStreamUpdater.new(@live_stream, params[:on])
+    if updater.updated?
+      if updater.published?
+        flash[:notice] = "Live stream turned #{@live_stream.state ? 'on' : 'off'}"
+        redirect_to coronavirus_live_stream_path
+      else
+        flash["alert"] = "Live stream has not been updated - please try again"
       end
-      redirect_to coronavirus_live_stream_path
     else
-      flash[:alert] = "Live stream has not been updated"
+      flash["alert"] = "Content item has not been updated - please try again"
+      redirect_to coronavirus_live_stream_path
     end
   end
 
@@ -61,15 +61,6 @@ class CoronavirusController < ApplicationController
   end
 
 private
-
-  def fetch_live_details
-    content = Services.publishing_api.get_content(landing_page_id)
-    JSON.parse(content.raw_response_body)["details"]
-  end
-
-  def landing_page_id
-    all_pages_configuration["landing"]["content_id"]
-  end
 
   def publish_page(id = page_config[:content_id])
     begin
