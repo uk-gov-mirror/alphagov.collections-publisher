@@ -39,26 +39,22 @@ private
   end
 
   def update_content_item
-    with_longer_timeout do
-      begin
-        response =
-          Services.publishing_api.put_content(CORONAVIRUS_PAGE_CONTENT_ID, live_stream_payload)
-        response.code == 200 ? response : object.toggle(:state)
-      rescue GdsApi::HTTPErrorResponse
-        object.toggle(:state)
-      end
+    begin
+      response =
+        Services.publishing_api.put_content(CORONAVIRUS_PAGE_CONTENT_ID, live_stream_payload)
+      response.code == 200 ? response : object.toggle(:state)
+    rescue GdsApi::HTTPErrorResponse
+      object.toggle(:state)
     end
   end
 
   def publish_content_item
-    with_longer_timeout do
-      begin
-        response =
-          Services.publishing_api.publish(CORONAVIRUS_PAGE_CONTENT_ID, "minor")
-        response.code == 200 ? response : object.toggle(:state)
-      rescue GdsApi::HTTPErrorResponse
-        object.toggle(:state)
-      end
+    begin
+      response =
+        Services.publishing_api.publish(CORONAVIRUS_PAGE_CONTENT_ID, "minor")
+      response.code == 200 ? response : object.toggle(:state)
+    rescue GdsApi::HTTPErrorResponse
+      object.toggle(:state)
     end
   end
 
@@ -78,16 +74,5 @@ private
         "description" => content_item["description"],
       },
     )
-  end
-
-  def with_longer_timeout
-    prior_timeout = Services.publishing_api.client.options[:timeout]
-    Services.publishing_api.client.options[:timeout] = 10
-
-    begin
-      yield
-    ensure
-      Services.publishing_api.client.options[:timeout] = prior_timeout
-    end
   end
 end
