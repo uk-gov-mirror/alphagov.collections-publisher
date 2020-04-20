@@ -1,4 +1,6 @@
 class LiveStreamUpdater
+  CORONAVIRUS_PAGE_CONTENT_ID = "774cee22-d896-44c1-a611-e3109cce8eae".freeze
+
   def initialize(object, state = nil)
     @object = object
     @state = state
@@ -40,7 +42,7 @@ private
     with_longer_timeout do
       begin
         response =
-          Services.publishing_api.put_content(landing_page_id, live_stream_payload)
+          Services.publishing_api.put_content(CORONAVIRUS_PAGE_CONTENT_ID, live_stream_payload)
         response.code == 200 ? response : object.toggle(:state)
       rescue GdsApi::HTTPErrorResponse
         object.toggle(:state)
@@ -52,7 +54,7 @@ private
     with_longer_timeout do
       begin
         response =
-          Services.publishing_api.publish(landing_page_id, "minor")
+          Services.publishing_api.publish(CORONAVIRUS_PAGE_CONTENT_ID, "minor")
         response.code == 200 ? response : object.toggle(:state)
       rescue GdsApi::HTTPErrorResponse
         object.toggle(:state)
@@ -61,7 +63,7 @@ private
   end
 
   def fetch_live_content_item
-    content = Services.publishing_api.get_content(landing_page_id)
+    content = Services.publishing_api.get_content(CORONAVIRUS_PAGE_CONTENT_ID)
     JSON.parse(content.raw_response_body)
   end
 
@@ -76,10 +78,6 @@ private
         "description" => content_item["description"],
       },
     )
-  end
-
-  def landing_page_id
-    "774cee22-d896-44c1-a611-e3109cce8eae"
   end
 
   def with_longer_timeout
