@@ -40,9 +40,7 @@ private
 
   def update_content_item
     begin
-      response =
-        Services.publishing_api.put_content(CORONAVIRUS_PAGE_CONTENT_ID, live_stream_payload)
-      response.code == 200 ? response : object.toggle(:state)
+      Services.publishing_api.put_content(CORONAVIRUS_PAGE_CONTENT_ID, live_stream_payload)
     rescue GdsApi::HTTPErrorResponse
       object.toggle(:state)
     end
@@ -50,9 +48,7 @@ private
 
   def publish_content_item
     begin
-      response =
-        Services.publishing_api.publish(CORONAVIRUS_PAGE_CONTENT_ID, "minor")
-      response.code == 200 ? response : object.toggle(:state)
+      Services.publishing_api.publish(CORONAVIRUS_PAGE_CONTENT_ID, "minor")
     rescue GdsApi::HTTPErrorResponse
       object.toggle(:state)
     end
