@@ -1,17 +1,20 @@
 class LiveStreamUpdater
   CORONAVIRUS_PAGE_CONTENT_ID = "774cee22-d896-44c1-a611-e3109cce8eae".freeze
 
+  attr_reader :errors
+
   def initialize(object, state = nil)
     @object = object
     @state = state
     @content_item = fetch_live_content_item
+    @errors = []
   end
 
-  def updated?
+  def update
     update_object_and_content_item.try(:code) == 200
   end
 
-  def published?
+  def publish
     publish_content_item.try(:code) == 200
   end
 
@@ -41,7 +44,8 @@ private
   def update_content_item
     begin
       Services.publishing_api.put_content(CORONAVIRUS_PAGE_CONTENT_ID, live_stream_payload)
-    rescue GdsApi::HTTPErrorResponse
+    rescue GdsApi::HTTPErrorResponse => e
+      errors << "There was a problem updating the livestream (error: #{e.code} - #{e.message})"
       object.toggle(:state)
     end
   end
@@ -49,7 +53,8 @@ private
   def publish_content_item
     begin
       Services.publishing_api.publish(CORONAVIRUS_PAGE_CONTENT_ID, "minor")
-    rescue GdsApi::HTTPErrorResponse
+    rescue GdsApi::HTTPErrorResponse => e
+      errors << "There was a problem publishing the livestream change (error: #{e.code} - #{e.message})"
       object.toggle(:state)
     end
   end

@@ -217,3 +217,15 @@ end
 def and_i_see_live_stream_is_off_message
   expect(page).to have_text("Live stream turned off")
 end
+
+def and_i_get_an_error_from_publishing_api
+  expect(Services.publishing_api).to receive(:put_content).and_raise(GdsApi::HTTPUnprocessableEntity.new(422))
+end
+
+def then_i_see_an_error_message
+  expect(page).to have_text("There was a problem updating the livestream (error: 422")
+end
+
+def and_the_toggle_status_is_still_correct
+  expect(page).to have_text("Turn it on")
+end

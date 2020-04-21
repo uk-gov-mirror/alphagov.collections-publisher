@@ -23,17 +23,13 @@ class CoronavirusController < ApplicationController
   def publish_live_stream
     @live_stream = LiveStream.last
     updater = LiveStreamUpdater.new(@live_stream, params[:on])
-    if updater.updated?
-      if updater.published?
-        flash[:notice] = "Live stream turned #{@live_stream.state ? 'on' : 'off'}"
-        redirect_to coronavirus_live_stream_path
-      else
-        flash["alert"] = "Live stream has not been updated - please try again"
-      end
+
+    unless updater.update && updater.publish
+      flash[:alert] = updater.errors.first
     else
-      flash["alert"] = "Content item has not been updated - please try again"
-      redirect_to coronavirus_live_stream_path
+      flash[:notice] = "Live stream turned #{@live_stream.state ? 'on' : 'off'}"
     end
+    redirect_to coronavirus_live_stream_path
   end
 
   def show

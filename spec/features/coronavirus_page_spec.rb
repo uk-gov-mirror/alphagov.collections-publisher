@@ -124,5 +124,15 @@ RSpec.feature "Publish updates to Coronavirus pages" do
       the_payload_is_updated_to_off
       and_i_see_live_stream_is_off_message
     end
+
+    scenario "Live stream update errors" do
+      stub_live_content_request_stream_off
+      when_i_visit_the_publish_coronavirus_page
+      and_i_select_live_stream
+      and_i_get_an_error_from_publishing_api
+      and_i_select_turn_on_live_stream
+      then_i_see_an_error_message
+      and_the_toggle_status_is_still_correct
+    end
   end
 end
