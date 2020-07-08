@@ -55,7 +55,7 @@ RSpec.describe CoronavirusPages::ContentBuilder do
 
   describe "#success?" do
     it "is true if call successful" do
-      expect(subject.success?).to be(true), subject.errors
+      expect(subject.success?).to be(true), subject.errors.join(", ")
     end
 
     context "on failure" do
