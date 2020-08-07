@@ -26,6 +26,7 @@ module CollectionsPublisher
     config.time_zone = "London"
     config.action_view.raise_on_missing_translations = true
     config.active_record.belongs_to_required_by_default = false
+    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
 
     config.action_mailer.notify_settings = {
       api_key: Rails.application.secrets.notify_api_key || "test-api-key",
