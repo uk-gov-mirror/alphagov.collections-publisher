@@ -1,0 +1,28 @@
+<%= render "govuk_publishing_components/components/input", {
+  label: {
+    text: "Enter the text of the announcement",
+  },
+  name: "announcement[text]",
+  id: "text",
+  error_message: error_items(form, :text),
+} %>
+<%= render "govuk_publishing_components/components/input", {
+  label: {
+    text: "Enter the path to the announcement",
+  },
+  name: "announcement[href]",
+  id: "href",
+  error_message: error_items(form, :href),
+  hint: "Example format: /government/news/coronavirus-covid-19",
+} %>
+<%= render "govuk_publishing_components/components/date_input", {
+  name: "announcement[published_at]",
+  id: "published_at",
+  legend_text: "Enter the date of publication",
+  error_message: error_items(form, :published_at),
+} %>
+<%= render "govuk_publishing_components/components/button", {
+  text: "Save",
+  margin_bottom: true
+} %>
+<%= tag.p (link_to 'Cancel', coronavirus_page_path(@coronavirus_page.slug), class: "govuk-link govuk-link--no-visited-state"), class: "govuk-body" %>

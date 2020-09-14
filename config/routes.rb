@@ -28,6 +28,7 @@ Rails.application.routes.draw do
         put "reorder", to: "reorder_sub_sections#update"
       end
     end
+    resources :announcements
   end
 
   resources :step_by_step_pages, path: "step-by-step-pages" do
