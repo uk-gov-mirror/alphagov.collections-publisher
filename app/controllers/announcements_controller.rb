@@ -19,6 +19,32 @@ class AnnouncementsController < ApplicationController
     end
   end
 
+  def edit
+    @coronavirus_page = CoronavirusPage.find_by(slug: params[:coronavirus_page_slug])
+    @announcement = @coronavirus_page.announcements.find(params[:id])
+  end
+
+  def update
+    @announcement = Announcement.find(params[:id])
+    @coronavirus_page = @announcement.coronavirus_page
+    if @announcement.update(announcement_params)
+      redirect_to coronavirus_page_path(@coronavirus_page.slug), notice: "Announcement was successfully updated."
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @announcement = Announcement.find(params[:id])
+    @coronavirus_page = @announcement.coronavirus_page
+    message = if @announcement.delete
+                { notice: "Announcement was successfully deleted." }
+              else
+                { alert: "Announcement couldn't be deleted" }
+              end
+    redirect_to coronavirus_page_path(@coronavirus_page.slug), message
+  end
+
 private
 
   def announcement_params

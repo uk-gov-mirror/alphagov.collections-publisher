@@ -71,4 +71,77 @@ RSpec.describe AnnouncementsController, type: :controller do
       expect(subject).not_to redirect_to(coronavirus_page_path(coronavirus_page.slug))
     end
   end
+
+  describe "GET /coronavirus/:coronavirus_page_slug/announcements/:id/edit" do
+    before do
+      stub_user.permissions << "Unreleased feature"
+    end
+    it "renders successfully" do
+      get :edit, params: { id: announcement, coronavirus_page_slug: slug }
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "PATCH /coronavirus/:coronavirus_page_slug/announcement" do
+    before do
+      stub_user.permissions << "Unreleased feature"
+      stub_request(:get, raw_content_url_regex)
+        .to_return(body: raw_content)
+      stub_coronavirus_publishing_api
+      live_stream
+    end
+    let(:params) do
+      {
+        id: announcement,
+        coronavirus_page_slug: slug,
+        announcement: announcement_params,
+      }
+    end
+
+    subject { patch :update, params: params }
+    
+    it "redirects to coronavirus page on success" do
+      expect(subject).to redirect_to(coronavirus_page_path(coronavirus_page.slug))
+    end
+
+    it "updates the announcements" do
+      announcement
+      expect { subject }.not_to(change { Announcement.count })
+    end
+
+    it "changes the attributes of the announcement" do
+      subject
+      published_at_time = Time.zone.local(published_at["year"], published_at["month"], published_at["day"])
+      announcement.reload
+      expect(announcement.text).to eq(text)
+      expect(announcement.href).to eq(href)
+      expect(announcement.published_at).to eq(published_at_time)
+    end
+  end
+
+  describe "DELETE /coronavirus/:coronavirus_page_slug/announcement/:id" do
+    before do
+      stub_user.permissions << "Unreleased feature"
+      stub_request(:get, raw_content_url_regex)
+        .to_return(body: raw_content)
+      stub_coronavirus_publishing_api
+    end
+    let(:params) do
+      {
+        id: announcement,
+        coronavirus_page_slug: slug,
+        announcement: announcement_params,
+      }
+    end
+    subject { delete :destroy, params: params }
+
+    it "redirects to the coronavirus page on success" do
+      expect(subject).to redirect_to(coronavirus_page_path(coronavirus_page.slug))
+    end
+
+    it "deletes the announcement" do
+      announcement
+      expect { subject }.to change { Announcement.count }.by(-1)
+    end
+  end
 end
