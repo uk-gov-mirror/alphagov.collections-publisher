@@ -28,8 +28,8 @@
 
 <div class="covid-edit-page govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_for @sub_section, sub_section: @sub_section, url: coronavirus_page_sub_sections_path do |form| %>
-      <%= render "form", form: form %>
+    <%= form_with url: coronavirus_page_sub_sections_path do %>
+      <%= render "form" %>
     <% end %>
   </div>
 </div>
