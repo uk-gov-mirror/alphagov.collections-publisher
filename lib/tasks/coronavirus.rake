@@ -4,7 +4,6 @@
 # are persisted in the collection publisher database, but they can still be updated in their relevant
 # yaml eg: https://github.com/alphagov/govuk-coronavirus-content/blob/master/content/coronavirus_landing_page.yml
 # If they get out of sync, this task can help.
-require_relative "../../app/services/coronavirus_pages/model_builder"
 
 namespace :coronavirus do
   desc "
