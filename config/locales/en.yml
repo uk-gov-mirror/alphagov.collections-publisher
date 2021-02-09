@@ -112,7 +112,7 @@ en:
           success: Timeline entry was successfully deleted.
           failed: Timeline entry couldn't be deleted
         reorder:
-          heading: Reorder timeline entries
+          title: Reorder timeline entries
           success: Timeline entries were successfully reordered.
           error: "Sorry! Timeline entries have not been reordered: %{error}."
           form:
