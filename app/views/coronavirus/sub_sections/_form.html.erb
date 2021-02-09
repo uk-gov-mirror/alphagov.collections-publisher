@@ -1,6 +1,6 @@
 <%= render "govuk_publishing_components/components/input", {
   label: {
-    text: "Accordion name",
+    text: t("coronavirus.pages.sub_sections.form.title"),
     bold: true
   },
   name: "sub_section[title]",
@@ -9,7 +9,7 @@
 } %>
 <%= render "components/markdown_editor", {
   label: {
-    text: "Links and link text",
+    text: t("coronavirus.pages.sub_sections.form.content"),
     bold: true
   },
   textarea: {
@@ -21,7 +21,7 @@
 } %>
 <%= render "govuk_publishing_components/components/input", {
   label: {
-    text: "Featured link",
+    text: t("coronavirus.pages.sub_sections.form.featured_link"),
     bold: true
   },
   name: "sub_section[featured_link]",
