@@ -11,7 +11,7 @@ module Coronavirus
     def create
       @announcement = page.announcements.new(announcement_params)
       if @announcement.save && draft_updater.send
-        redirect_to coronavirus_page_path(page.slug), notice: I18n.t("coronavirus.pages.announcements.new.success")
+        redirect_to coronavirus_page_path(page.slug), notice: I18n.t("coronavirus.announcements.controller.create_success")
       else
         render :new
       end
@@ -19,13 +19,13 @@ module Coronavirus
 
     def destroy
       announcement = page.announcements.find(params[:id])
-      message = { notice: I18n.t("coronavirus.pages.announcements.delete.success") }
+      message = { notice: I18n.t("coronavirus.announcements.controller.delete_success") }
 
       Announcement.transaction do
         announcement.destroy!
 
         unless draft_updater.send
-          message = { alert: I18n.t("coronavirus.pages.announcements.delete.failed") }
+          message = { alert: I18n.t("coronavirus.announcements.controller.delete_failed") }
           raise ActiveRecord::Rollback
         end
       end
@@ -41,7 +41,7 @@ module Coronavirus
       @announcement = page.announcements.find(params[:id])
 
       if @announcement.update(announcement_params) && draft_updater.send
-        redirect_to coronavirus_page_path(page.slug), notice: I18n.t("coronavirus.pages.announcements.edit.success")
+        redirect_to coronavirus_page_path(page.slug), notice: I18n.t("coronavirus.announcements.controller.update_success")
       else
         render :edit
       end

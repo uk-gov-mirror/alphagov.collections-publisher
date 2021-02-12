@@ -138,43 +138,43 @@ module CoronavirusFeatureSteps
   end
 
   def i_see_a_publish_landing_page_link
-    expect(page).to have_link(I18n.t("coronavirus.pages.index.landing_page_edit.something_else"))
+    expect(page).to have_link(I18n.t("coronavirus.pages.index.edit_landing_page.something_else"))
   end
 
   def i_see_a_publish_business_page_link
-    expect(page).to have_link(I18n.t("coronavirus.pages.index.subtopic_edit.something", page_name: "business hub"))
+    expect(page).to have_link(I18n.t("coronavirus.pages.index.edit_subtopic_page.something_else", page_name: "business hub"))
   end
 
   def i_see_livestream_button
-    expect(page).to have_link(I18n.t("coronavirus.pages.index.landing_page_edit.live_stream_url"))
+    expect(page).to have_link(I18n.t("coronavirus.pages.index.edit_landing_page.live_stream_url"))
   end
 
   def and_i_select_landing_page
-    click_link(I18n.t("coronavirus.pages.index.landing_page_edit.something_else"))
+    click_link(I18n.t("coronavirus.pages.index.edit_landing_page.something_else"))
   end
 
   def and_i_select_business_page
-    click_link(I18n.t("coronavirus.pages.index.subtopic_edit.something", page_name: "business hub"))
+    click_link(I18n.t("coronavirus.pages.index.edit_subtopic_page.something_else", page_name: "business hub"))
   end
 
   def and_i_select_live_stream
-    click_link(I18n.t("coronavirus.pages.index.landing_page_edit.live_stream_url"))
+    click_link(I18n.t("coronavirus.pages.index.edit_landing_page.live_stream_url"))
     expect(page).to have_text(I18n.t("coronavirus.pages.live_stream.title"))
   end
 
   def i_am_able_to_update_draft_content_with_valid_url
     fill_in("url", with: valid_url)
-    click_on(I18n.t("coronavirus.pages.draft.button_text"))
+    click_on(I18n.t("coronavirus.pages.shared.draft.button_text"))
     the_payload_contains_the_valid_url
   end
 
   def and_i_can_publish_the_url
-    click_on(I18n.t("coronavirus.pages.publish.button_text"))
+    click_on(I18n.t("coronavirus.pages.shared.publish.button_text"))
     assert_publishing_api_publish("774cee22-d896-44c1-a611-e3109cce8eae", update_type: "minor")
   end
 
   def and_i_can_check_the_preview
-    expect(page).to have_link(I18n.t("coronavirus.pages.preview.button_text"), href: "https://draft-origin.test.gov.uk/coronavirus")
+    expect(page).to have_link(I18n.t("coronavirus.pages.shared.preview.button_text"), href: "https://draft-origin.test.gov.uk/coronavirus")
   end
 
   def i_am_able_to_submit_an_invalid_url
@@ -205,23 +205,23 @@ module CoronavirusFeatureSteps
   end
 
   def then_i_can_see_an_announcements_section
-    expect(page).to have_content(I18n.t("coronavirus.pages.announcements.summary.title"))
-    expect(page).to have_link(I18n.t("coronavirus.pages.announcements.summary.reorder"), href: reorder_coronavirus_page_announcements_path(@coronavirus_page.slug))
-    expect(page).to have_link(I18n.t("coronavirus.pages.announcements.summary.add"))
+    expect(page).to have_content(I18n.t("coronavirus.pages.announcements.title"))
+    expect(page).to have_link(I18n.t("coronavirus.pages.announcements.reorder"), href: reorder_coronavirus_page_announcements_path(@coronavirus_page.slug))
+    expect(page).to have_link(I18n.t("coronavirus.pages.announcements.add"))
   end
 
   def then_i_can_see_a_timeline_entries_section
-    expect(page).to have_content(I18n.t("coronavirus.pages.timeline_entries.summary.title"))
-    expect(page).to have_link(I18n.t("coronavirus.pages.timeline_entries.summary.reorder"), href: reorder_coronavirus_page_timeline_entries_path(@coronavirus_page.slug))
-    expect(page).to have_link(I18n.t("coronavirus.pages.timeline_entries.summary.add"))
+    expect(page).to have_content(I18n.t("coronavirus.pages.timeline_entries.title"))
+    expect(page).to have_link(I18n.t("coronavirus.pages.timeline_entries.reorder"), href: reorder_coronavirus_page_timeline_entries_path(@coronavirus_page.slug))
+    expect(page).to have_link(I18n.t("coronavirus.pages.timeline_entries.add"))
   end
 
   def then_i_cannot_see_an_announcements_section
-    expect(page).to_not have_content(I18n.t("coronavirus.pages.announcements.summary.title"))
+    expect(page).to_not have_content(I18n.t("coronavirus.pages.announcements.title"))
   end
 
   def then_i_cannot_see_a_timeline_entries_section
-    expect(page).to_not have_content(I18n.t("coronavirus.pages.timeline_entries.summary.title"))
+    expect(page).to_not have_content(I18n.t("coronavirus.pages.timeline_entries.title"))
   end
 
   def and_i_can_see_existing_announcements
@@ -249,7 +249,7 @@ module CoronavirusFeatureSteps
   end
 
   def then_i_see_announcement_updated_message
-    expect(page).to have_content I18n.t("coronavirus.pages.announcements.reorder.success")
+    expect(page).to have_content I18n.t("coronavirus.reorder_announcements.controller.reorder_success")
   end
 
   def and_i_see_the_announcements_have_changed_order
@@ -262,13 +262,13 @@ module CoronavirusFeatureSteps
   # Adding an announcement
 
   def and_i_add_a_new_announcement
-    click_on(I18n.t("coronavirus.pages.announcements.summary.add"))
+    click_on(I18n.t("coronavirus.pages.announcements.add"))
   end
 
   def then_i_see_the_create_announcement_form
-    expect(page).to have_text(I18n.t("coronavirus.pages.announcements.form.title.label"))
-    expect(page).to have_text(I18n.t("coronavirus.pages.announcements.form.path.label"))
-    expect(page).to have_text(I18n.t("coronavirus.pages.announcements.form.date.label"))
+    expect(page).to have_text(I18n.t("coronavirus.announcements.form.title.label"))
+    expect(page).to have_text(I18n.t("coronavirus.announcements.form.path.label"))
+    expect(page).to have_text(I18n.t("coronavirus.announcements.form.date.label"))
   end
 
   def when_i_fill_in_the_announcement_form_with_valid_data
@@ -289,13 +289,13 @@ module CoronavirusFeatureSteps
   def when_i_delete_an_announcement
     stub_coronavirus_landing_page_content(@coronavirus_page)
 
-    page.accept_alert I18n.t("coronavirus.pages.announcements.delete.confirm") do
+    page.accept_alert I18n.t("coronavirus.pages.announcements.delete_confirm") do
       page.find("a[href=\"/coronavirus/landing/announcements/#{@announcement_one.id}\"]", text: "Delete").click
     end
   end
 
   def then_i_can_see_an_announcement_has_been_deleted
-    expect(page).to have_text(I18n.t("coronavirus.pages.announcements.delete.success"))
+    expect(page).to have_text(I18n.t("coronavirus.announcements.controller.delete_success"))
     expect(page).not_to(have_text(@announcement_one.title))
   end
 
@@ -304,7 +304,7 @@ module CoronavirusFeatureSteps
   end
 
   def then_i_see_the_edit_announcement_form
-    expect(page).to have_text(I18n.t("coronavirus.pages.announcements.edit.title"))
+    expect(page).to have_text(I18n.t("coronavirus.announcements.edit.title"))
   end
 
   def when_i_can_edit_the_announcement_form_with_valid_data
@@ -314,7 +314,7 @@ module CoronavirusFeatureSteps
   end
 
   def then_i_can_see_that_the_announcement_has_been_updated
-    expect(page).to have_content(I18n.t("coronavirus.pages.announcements.edit.success"))
+    expect(page).to have_content(I18n.t("coronavirus.announcements.controller.update_success"))
     expect(page).to have_content("Updated title")
   end
 
@@ -516,7 +516,7 @@ module CoronavirusFeatureSteps
   end
 
   def and_i_discard_my_changes
-    click_link(I18n.t("coronavirus.pages.actions.discard_changes.title"))
+    click_link(I18n.t("coronavirus.pages.actions.discard_changes"))
   end
 
   def i_see_error_message_no_changes_to_discard
@@ -528,28 +528,28 @@ module CoronavirusFeatureSteps
   end
 
   def and_i_see_a_message_telling_me_that_the_page_does_not_exist
-    expect(page).to have_text(I18n.t("coronavirus.pages.error.slug_unknown", slug: "flimflam"))
+    expect(page).to have_text(I18n.t("coronavirus.pages.controller.slug_unknown_for_access", slug: "flimflam"))
   end
 
   def i_see_an_update_draft_button
-    expect(page).to have_button(I18n.t("coronavirus.pages.draft.button_text"))
+    expect(page).to have_button(I18n.t("coronavirus.pages.shared.draft.button_text"))
   end
 
   def and_a_preview_button
-    expect(page).to have_link(I18n.t("coronavirus.pages.preview.button_text"))
-    expect(find_link(I18n.t("coronavirus.pages.preview.button_text"))[:target]).to eq("_blank")
+    expect(page).to have_link(I18n.t("coronavirus.pages.shared.preview.button_text"))
+    expect(find_link(I18n.t("coronavirus.pages.shared.preview.button_text"))[:target]).to eq("_blank")
   end
 
   def and_a_publish_button
-    expect(page).to have_button(I18n.t("coronavirus.pages.publish.button_text"))
+    expect(page).to have_button(I18n.t("coronavirus.pages.shared.publish.button_text"))
   end
 
   def and_a_view_live_business_content_button
-    expect(page).to have_link(I18n.t("coronavirus.pages.live.button_text"), href: "https://www.test.gov.uk/coronavirus/business-support")
+    expect(page).to have_link(I18n.t("coronavirus.pages.shared.live.button_text"), href: "https://www.test.gov.uk/coronavirus/business-support")
   end
 
   def and_i_push_a_new_draft_version
-    click_on(I18n.t("coronavirus.pages.draft.button_text"))
+    click_on(I18n.t("coronavirus.pages.shared.draft.button_text"))
   end
 
   def and_i_push_a_new_draft_version_with_invalid_content
@@ -579,15 +579,15 @@ module CoronavirusFeatureSteps
   end
 
   def and_i_see_a_draft_updated_message
-    expect(page).to have_text(I18n.t("coronavirus.pages.actions.update.success"))
+    expect(page).to have_text(I18n.t("coronavirus.pages.controller.update_success"))
   end
 
   def and_i_choose_a_major_update
-    choose(I18n.t("coronavirus.pages.publish.major_type"))
+    choose(I18n.t("coronavirus.pages.shared.publish.major_type"))
   end
 
   def and_i_publish_the_page
-    click_on(I18n.t("coronavirus.pages.publish.button_text"))
+    click_on(I18n.t("coronavirus.pages.shared.publish.button_text"))
   end
 
   def then_the_page_publishes
@@ -611,7 +611,7 @@ module CoronavirusFeatureSteps
   end
 
   def and_i_see_a_page_published_message
-    expect(page).to have_text(I18n.t("coronavirus.pages.actions.publish.success"))
+    expect(page).to have_text(I18n.t("coronavirus.pages.controller.publish_success"))
   end
 
   def and_i_see_live_stream_is_updated_message

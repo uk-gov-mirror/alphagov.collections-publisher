@@ -1,168 +1,255 @@
 en:
   coronavirus:
+    announcements:
+      controller:
+        create_success: Announcement was successfully created.
+        update_success: Announcement was successfully updated.
+        delete_success: Announcement was successfully deleted.
+        delete_failed: Announcement couldn't be deleted
+      edit:
+        title: Edit announcement
+      form:
+        title:
+          label: Enter the title of the announcement
+        path:
+          label: Enter the path to the announcement
+          hint: "Example format: /government/news/coronavirus-covid-19"
+        date:
+          label: Enter the date of publication
+          hint: For example, 31 3 2020
+        cancel: Cancel
+      new:
+        title: Add announcement
     pages:
-      error:
-        slug_unknown: ’%{slug}’ is not a valid page. Please select from one of those below.
       actions:
-        discard_changes:
-          title: Discard changes
-          success: Changes to subsections have been discarded
-        view_on_govuk: View on GOV.UK
+        publish: Publish
         preview: Preview
-        publish:
-          title: Publish
-          success: Page published!
-          failed: You have already published this page.
-        update:
-          success: Draft content updated
-          failed:
-            slug_unknown: Page could not be updated because the configuration cannot be found.
+        discard_changes: Discard changes
+        view_on_govuk: View on GOV.UK
       announcements:
-        summary:
-          title: Announcements
-          reorder: Reorder
-          add: Add announcement
-        form:
-          title:
-            label: Enter the title of the announcement
-          path:
-            label: Enter the path to the announcement
-            hint: "Example format: /government/news/coronavirus-covid-19"
-          date:
-            label: Enter the date of publication
-            hint: For example, 31 3 2020
-        new:
-          title: Add announcement
-          success: Announcement was successfully created.
-        edit:
-          title: Edit announcement
-          success: Announcement was successfully updated.
-        delete:
-          confirm: Are you sure?
-          success: Announcement was successfully deleted.
-          failed: Announcement couldn't be deleted
-        reorder:
-          title: Reorder announcements
-          success: Announcements were successfully reordered.
-          failed: "Sorry! Announcements have not been reordered: %{error}."
-          form:
-            markdown_hint: Use the up/down buttons on the right to reorder the announcements, or click and hold on a section to reorder using drag and drop.
-      draft:
-        heading: 3. Update draft
-        button_text: Update draft
-      github:
-        update_heading: 1. Update GitHub
-        review_heading: 2. Get changes reviewed and merged
-        update_sub_heading_html: "Update the <a href=\"%{github_url}\">coronavirus content on Github</a>"
-        approve_sub_heading: Get the changes approved and merged into master.
+        delete_confirm: Are you sure?
+        title: Announcements
+        reorder: Reorder
+        add: Add announcement
+      controller:
+        update_success: Draft content updated
+        publish_success: Page published!
+        publish_conflict: You have already published this page.
+        discard_success: Changes to subsections have been discarded
+        slug_unknown_for_access: ’%{slug}’ is not a valid page. Please select from one of those below.
+        slug_unknown_for_update: Page could not be updated because the configuration cannot be found.
       index:
-        landing_page_edit:
+        edit_landing_page:
           accordions: Edit landing page accordions, announcements and timeline
           live_stream_url: Edit live stream URL
           something_else: Edit something else on the landing page
-        subtopic_edit:
+        edit_subtopic_page:
           accordions: "Edit %{page_name} accordions"
-          something: Edit something else on the %{page_name}
-      live_stream:
-        title: Update live stream URL
-        instructions:
-          one:
-            step: 1. Add the URL
-            summary:
-              title: Help with YouTube
-              content: |
-                Every afternoon, No.10 adds a video link to the upcoming press conference to this [page](https://www.youtube.com/user/Number10gov/videos?view=2)
-
-                The video will appear in the 'Uploads' section of the page and is labelled as 'Live'.
-
-                The video is added at around 4.30pm on weekdays, and 3.30pm on weekends.
-
-                If the most recent video has yesterday's date, or there is no video labelled 'Live' check again in a few minutes.
-
-                Click on the video, and copy its URL.
-            label: YouTube URL
-            url_placeholder: e.g. https://www.youtube.com/watch?v=d3ieIwP4FKg
-            button_text: Update draft
-          two:
-            step: 2. Preview your changes
-            button_text: Preview
-          three:
-            step: 3. Publish your change
-            button_text: Publish
-          four:
-            step: 4. Check the live landing page
-            button_text: Check live
-        update:
-          success: Draft live stream url updated!
-          failed: Live stream url has not been updated - please try again
-        publish:
-          success: New live stream url published!
-          failed: Live stream url has not been published - please try again
-      live:
-        heading: 6. Check live
-        button_text: View live version
+          something_else: Edit something else on the %{page_name}
       prepare:
         lead_paragraph: "Follow the steps below to make changes to any part of the %{coronavirus_page_name}, except the accordions."
-      preview:
-        heading: 4. Preview changes
-        button_text: Preview
-      publish:
-        heading: 5. Publish changes
-        radio_heading: Update type
-        major_type: Major
-        minor_type: Minor
-        button_text: Publish
+      shared:
+        draft:
+          heading: 3. Update draft
+          button_text: Update draft
+        github:
+          update_heading: 1. Update GitHub
+          review_heading: 2. Get changes reviewed and merged
+          update_sub_heading_html: "Update the <a href=\"%{github_url}\">coronavirus content on Github</a>"
+          approve_sub_heading: Get the changes approved and merged into master.
+        live:
+          heading: 6. Check live
+          button_text: View live version
+        preview:
+          heading: 4. Preview changes
+          button_text: Preview
+        publish:
+          heading: 5. Publish changes
+          radio_heading: Update type
+          major_type: Major
+          minor_type: Minor
+          button_text: Publish
       show:
         link_text: Coronavirus pages
         accordion_text: "%{coronavirus_page_name} accordions"
       sub_sections:
-        summary:
-          reorder: Reorder
-          add: Add accordion
-        form:
-          title: Accordion name
-          content: Links and link text
-          featured_link: Featured link
-        new:
-          title: Add accordion
-          success: Sub-section was successfully created.
-        edit:
-          title: Edit guidance and support accordion
-          success: Sub-section was successfully updated.
-        delete:
-          confirm: Are you sure?
-          success: Sub-section was successfully deleted.
-          failed: Sub-section couldn't be deleted
-        reorder:
-          title: "Reorder %{section} accordion"
-          success: Sections were successfully reordered.
-          failed: "Sorry! Sections have not been reordered: %{error}."
-          form:
-            markdown_hint: Use the up/down buttons on the right to reorder the sections, or click and hold on a section to reorder using drag and drop.
+        delete_confirm: Are you sure?
+        reorder: Reorder
+        add: Add accordion
       timeline_entries:
-        summary:
-          title: Timeline entries
-          reorder: Reorder
-          add: Add timeline entry
-        form:
-          heading: Enter the heading of the timeline entry
-          content: Content
-        new:
-          title: Add timeline entry
-          success: Timeline entry was successfully created.
-        edit:
-          title: Edit timeline entry
-          success: Timeline entry was successfully updated.
-        delete:
-          confirm: Are you sure?
-          success: Timeline entry was successfully deleted.
-          failed: Timeline entry couldn't be deleted
-        reorder:
-          title: Reorder timeline entries
-          success: Timeline entries were successfully reordered.
-          error: "Sorry! Timeline entries have not been reordered: %{error}."
-          form:
-            markdown_hint: Use the up/down buttons on the right to reorder the timeline entries, or click and hold on a section to reorder using drag and drop.
+        delete_confirm: Are you sure?
+        title: Timeline entries
+        reorder: Reorder
+        add: Add timeline entry
+    reorder_announcements:
+      controller:
+        reorder_success: Announcements were successfully reordered.
+        reorder_failed: "Sorry! Announcements have not been reordered: %{error}."
+      index:
+        title: Reorder announcements
+        reorder_hint_markdown: |
+          Use the up/down buttons on the right to reorder the announcements,
+          or click and hold on a section to reorder using drag and drop.
+      # actions:
+      #   discard_changes:
+      #     title: Discard changes
+      #     success: Changes to subsections have been discarded
+      #   view_on_govuk: View on GOV.UK
+      #   preview: Preview
+      #   publish:
+      #     title: Publish
+      #     success: Page published!
+      #     failed: You have already published this page.
+      #   update:
+      #     success: Draft content updated
+      #     failed:
+      #       slug_unknown: Page could not be updated because the configuration cannot be found.
+      # announcements:
+      #   summary:
+      #     title: Announcements
+      #     reorder: Reorder
+      #     add: Add announcement
+      #   form:
+      #     title:
+      #       label: Enter the title of the announcement
+      #     path:
+      #       label: Enter the path to the announcement
+      #       hint: "Example format: /government/news/coronavirus-covid-19"
+      #     date:
+      #       label: Enter the date of publication
+      #       hint: For example, 31 3 2020
+      #   new:
+      #     title: Add announcement
+      #     success: Announcement was successfully created.
+      #   edit:
+      #     title: Edit announcement
+      #     success: Announcement was successfully updated.
+      #   delete:
+      #     confirm: Are you sure?
+      #     success: Announcement was successfully deleted.
+      #     failed: Announcement couldn't be deleted
+      #   reorder:
+      #     title: Reorder announcements
+      #     success: Announcements were successfully reordered.
+      #     failed: "Sorry! Announcements have not been reordered: %{error}."
+      #     form:
+      #       markdown_hint: Use the up/down buttons on the right to reorder the announcements, or click and hold on a section to reorder using drag and drop.
+      # draft:
+      #   heading: 3. Update draft
+      #   button_text: Update draft
+      # github:
+      #   update_heading: 1. Update GitHub
+      #   review_heading: 2. Get changes reviewed and merged
+      #   update_sub_heading_html: "Update the <a href=\"%{github_url}\">coronavirus content on Github</a>"
+      #   approve_sub_heading: Get the changes approved and merged into master.
+      # index:
+      #   landing_page_edit:
+      #     accordions: Edit landing page accordions, announcements and timeline
+      #     live_stream_url: Edit live stream URL
+      #     something_else: Edit something else on the landing page
+      #   subtopic_edit:
+      #     accordions: "Edit %{page_name} accordions"
+      #     something: Edit something else on the %{page_name}
+      # live_stream:
+      #   title: Update live stream URL
+      #   instructions:
+      #     one:
+      #       step: 1. Add the URL
+      #       summary:
+      #         title: Help with YouTube
+      #         content: |
+      #           Every afternoon, No.10 adds a video link to the upcoming press conference to this [page](https://www.youtube.com/user/Number10gov/videos?view=2)
+      #
+      #           The video will appear in the 'Uploads' section of the page and is labelled as 'Live'.
+      #
+      #           The video is added at around 4.30pm on weekdays, and 3.30pm on weekends.
+      #
+      #           If the most recent video has yesterday's date, or there is no video labelled 'Live' check again in a few minutes.
+      #
+      #           Click on the video, and copy its URL.
+      #       label: YouTube URL
+      #       url_placeholder: e.g. https://www.youtube.com/watch?v=d3ieIwP4FKg
+      #       button_text: Update draft
+      #     two:
+      #       step: 2. Preview your changes
+      #       button_text: Preview
+      #     three:
+      #       step: 3. Publish your change
+      #       button_text: Publish
+      #     four:
+      #       step: 4. Check the live landing page
+      #       button_text: Check live
+      #   update:
+      #     success: Draft live stream url updated!
+      #     failed: Live stream url has not been updated - please try again
+      #   publish:
+      #     success: New live stream url published!
+      #     failed: Live stream url has not been published - please try again
+      # live:
+      #   heading: 6. Check live
+      #   button_text: View live version
+      # prepare:
+      #   lead_paragraph: "Follow the steps below to make changes to any part of the %{coronavirus_page_name}, except the accordions."
+      # preview:
+      #   heading: 4. Preview changes
+      #   button_text: Preview
+      # publish:
+      #   heading: 5. Publish changes
+      #   radio_heading: Update type
+      #   major_type: Major
+      #   minor_type: Minor
+      #   button_text: Publish
+      # show:
+      #   link_text: Coronavirus pages
+      #   accordion_text: "%{coronavirus_page_name} accordions"
+      # sub_sections:
+      #   summary:
+      #     reorder: Reorder
+      #     add: Add accordion
+      #   form:
+      #     title: Accordion name
+      #     content: Links and link text
+      #     featured_link: Featured link
+      #   new:
+      #     title: Add accordion
+      #     success: Sub-section was successfully created.
+      #   edit:
+      #     title: Edit guidance and support accordion
+      #     success: Sub-section was successfully updated.
+      #   delete:
+      #     confirm: Are you sure?
+      #     success: Sub-section was successfully deleted.
+      #     failed: Sub-section couldn't be deleted
+      #   reorder:
+      #     title: "Reorder %{section} accordion"
+      #     success: Sections were successfully reordered.
+      #     failed: "Sorry! Sections have not been reordered: %{error}."
+      #     form:
+      #       markdown_hint: Use the up/down buttons on the right to reorder the sections, or click and hold on a section to reorder using drag and drop.
+      # timeline_entries:
+      #   summary:
+      #     title: Timeline entries
+      #     reorder: Reorder
+      #     add: Add timeline entry
+      #   form:
+      #     heading: Enter the heading of the timeline entry
+      #     content: Content
+      #   new:
+      #     title: Add timeline entry
+      #     success: Timeline entry was successfully created.
+      #   edit:
+      #     title: Edit timeline entry
+      #     success: Timeline entry was successfully updated.
+      #   delete:
+      #     confirm: Are you sure?
+      #     success: Timeline entry was successfully deleted.
+      #     failed: Timeline entry couldn't be deleted
+      #   reorder:
+      #     title: Reorder timeline entries
+      #     success: Timeline entries were successfully reordered.
+      #     error: "Sorry! Timeline entries have not been reordered: %{error}."
+      #     form:
+      #       markdown_hint: Use the up/down buttons on the right to reorder the timeline entries, or click and hold on a section to reorder using drag and drop.
   step_by_step_page:
     statuses:
       draft: Draft
