@@ -29,21 +29,6 @@ class Coronavirus::SubSectionJsonPresenter
         title: title,
         sub_sections: sub_sections,
       }
-
-    if @sub_section.featured_link.present? && !link_set_as_featured?
-      errors << "Featured link does not exist in accordion content"
-    end
-
-    @output
-  end
-
-  def errors
-    @errors ||= []
-  end
-
-  def success?
-    output
-    errors.empty?
   end
 
   def sub_sections
@@ -97,8 +82,6 @@ class Coronavirus::SubSectionJsonPresenter
       elsif is_link?(line)
         hash[:list] ||= []
         hash[:list] << build_link(line)
-      else
-        errors << "Unable to parse markdown: '#{line}'"
       end
     end
   end

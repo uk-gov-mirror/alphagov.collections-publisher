@@ -86,7 +86,6 @@ module Coronavirus::Pages
     def sub_sections_data
       page.sub_sections.order(:position).map do |sub_section|
         presenter = Coronavirus::SubSectionJsonPresenter.new(sub_section, page.content_id)
-        add_error(presenter.errors) unless presenter.success?
         presenter.output
       end
     end

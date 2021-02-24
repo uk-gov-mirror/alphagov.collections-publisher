@@ -44,20 +44,11 @@ RSpec.describe Coronavirus::SubSectionJsonPresenter do
       expect(subject.output).to eq(expected)
     end
 
-    it "has no errors" do
-      subject.output
-      expect(subject.errors).to be_blank
-    end
-
     context "with unknown content" do
       let(:content) { [title_markup, link, "unknown"].join("\n") }
 
       it "has expected content" do
         expect(subject.output).to eq(expected)
-      end
-
-      it "has an error" do
-        expect { subject.output }.to change { subject.errors.length }.by(1)
       end
     end
 
@@ -100,13 +91,6 @@ RSpec.describe Coronavirus::SubSectionJsonPresenter do
           ),
         )
       end
-
-      it "has an error when content does not contain the featured link" do
-        featured_link = "/#{SecureRandom.urlsafe_base64}"
-        sub_section.featured_link = featured_link
-
-        expect { subject.output }.to change { subject.errors.length }.by(1)
-      end
     end
   end
 
@@ -126,11 +110,6 @@ RSpec.describe Coronavirus::SubSectionJsonPresenter do
     it "has a null title" do
       expect(sub_section_hash.keys).to include(:title)
       expect(sub_section_hash[:title]).to be_nil
-    end
-
-    it "creates no errors" do
-      sub_section_hash
-      expect(subject.errors).to be_blank
     end
 
     context "with a title" do
@@ -209,10 +188,6 @@ RSpec.describe Coronavirus::SubSectionJsonPresenter do
 
       it "does not populate list" do
         expect(sub_section_hash.keys).not_to include(:list)
-      end
-
-      it "adds an error" do
-        expect { sub_section_hash }.to change { subject.errors.length }.by(1)
       end
     end
 
