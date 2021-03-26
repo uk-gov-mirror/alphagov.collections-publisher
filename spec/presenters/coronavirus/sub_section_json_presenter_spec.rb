@@ -158,6 +158,62 @@ RSpec.describe Coronavirus::SubSectionJsonPresenter do
     end
   end
 
+  describe "#sub_sections" do
+    let(:title) { Faker::Lorem.sentence }
+    let(:label) { Faker::Lorem.sentence }
+    let(:path)  { "/#{File.join(Faker::Lorem.words)}" }
+    let(:sub_section) do
+      create :coronavirus_sub_section, content: "###{title}\n[#{label}](#{path})"
+    end
+
+    it "includes an action link if one exists" do
+      sub_section.action_link_url = "/bananas"
+      sub_section.action_link_content = "Bananas"
+      sub_section.action_link_summary = "Bananas"
+
+      expected = [
+        {
+          list: [
+            {
+              url: "/bananas",
+              label: "Bananas",
+              description: "Bananas",
+              featured_link: true,
+            },
+          ],
+          title: nil,
+        },
+        {
+          list: [
+            {
+              url: path,
+              label: label,
+            },
+          ],
+          title: title,
+        },
+      ]
+
+      expect(subject.sub_sections).to eq(expected)
+    end
+
+    it "does not include an action link if there isn't one" do
+      expected = [
+        {
+          list: [
+            {
+              url: path,
+              label: label,
+            },
+          ],
+          title: title,
+        },
+      ]
+
+      expect(subject.sub_sections).to eq(expected)
+    end
+  end
+
   def random_link_markdown
     label = Faker::Lorem.sentence
     path = "/#{File.join(Faker::Lorem.words)}"
