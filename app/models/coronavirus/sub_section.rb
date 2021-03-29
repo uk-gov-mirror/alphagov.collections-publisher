@@ -18,6 +18,14 @@ class Coronavirus::SubSection < ApplicationRecord
     super.tap { populate_structured_content }
   end
 
+  def action_link_present?
+    action_link_url.present? && action_link_content.present? && action_link_summary.present?
+  end
+
+  def action_link_blank?
+    action_link_url.blank? && action_link_content.blank? && action_link_summary.blank?
+  end
+
 private
 
   def populate_structured_content

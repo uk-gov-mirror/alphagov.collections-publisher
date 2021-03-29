@@ -62,4 +62,40 @@ RSpec.describe Coronavirus::SubSection do
       end
     end
   end
+
+  describe "#action_link_present?" do
+    it "should be present if all action link fields are populated" do
+      sub_section.action_link_url = "/bananas"
+      sub_section.action_link_content = "Bananas"
+      sub_section.action_link_summary = "Bananas"
+
+      expect(sub_section.action_link_present?).to be(true)
+    end
+
+    it "should not be present if not all action link fields are populated" do
+      sub_section.action_link_url = "/bananas"
+      sub_section.action_link_content = nil
+      sub_section.action_link_summary = ""
+
+      expect(sub_section.action_link_present?).to be(false)
+    end
+  end
+
+  describe "#action_link_blank?" do
+    it "should be blank if all action link fields are empty" do
+      sub_section.action_link_url = nil
+      sub_section.action_link_content = ""
+      sub_section.action_link_summary = nil
+
+      expect(sub_section.action_link_blank?).to be(true)
+    end
+
+    it "should not be blank if not all action link fields are empty" do
+      sub_section.action_link_url = "/bananas"
+      sub_section.action_link_content = nil
+      sub_section.action_link_summary = ""
+
+      expect(sub_section.action_link_blank?).to be(false)
+    end
+  end
 end
